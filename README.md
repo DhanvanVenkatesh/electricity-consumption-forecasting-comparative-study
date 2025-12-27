@@ -1,175 +1,174 @@
-📘 Electricity Consumption Forecasting — Comparative Statistical & Deep Learning Study
+# 📘 Electricity Consumption Forecasting — Comparative Statistical & Deep Learning Study
 
-This project is part of my higher-studies application research work.
-It presents a comparative study of statistical, baseline, and deep learning models for short-term hourly electricity consumption forecasting, using the Global Active Power variable from the Household Power Consumption dataset.
+This project is part of my **higher-studies application research work**.
+It presents a comparative study of statistical, baseline, and deep learning models for **short-term hourly electricity consumption forecasting**, using the *Global Active Power* variable from the Household Power Consumption dataset.
 
 The study evaluates:
 
-Naive Forecast (Baseline)
+* Naive Forecast (Baseline)
+* Moving Average Models
+* ARIMA
+* SARIMA
+* Prophet
+* **LSTM (Deep Learning, 24-hour window)**
 
-Moving Average Models
+Experiments were implemented and executed in **Google Colab**.
 
-ARIMA
+---
 
-SARIMA
-
-Prophet
-
-LSTM (Deep Learning, 24-hour window)
-
-Experiments were implemented and executed in Google Colab.
-
-📊 Project Motivation
+## 📊 Project Motivation
 
 Short-term load forecasting plays a critical role in:
 
-energy demand planning
-
-consumption analytics
-
-smart-grid load scheduling
+* energy demand planning
+* consumption analytics
+* smart-grid load scheduling
 
 While complex forecasting models are widely used, empirical results often show that:
 
-simple persistence-based baselines may outperform sophisticated classical models for short-horizon load prediction.
+> Simple persistence-based baselines may outperform sophisticated classical models for short-horizon load prediction.
 
 This project investigates that hypothesis through a structured and reproducible model comparison.
 
-📂 Dataset
+---
 
-Household Electric Power Consumption Dataset
+## 📂 Dataset
+
+**Household Electric Power Consumption Dataset**
 
 Source (Kaggle mirror):
-https://www.kaggle.com/datasets/uciml/electric-power-consumption-data-set
+[https://www.kaggle.com/datasets/uciml/electric-power-consumption-data-set](https://www.kaggle.com/datasets/uciml/electric-power-consumption-data-set)
 
 Target variable:
 
-Global_active_power
+* `Global_active_power`
 
 Preprocessing steps:
 
-combined Date + Time into timestamp
+* combined Date + Time into timestamp
+* sorted chronologically
+* converted numeric fields
+* resampled to **hourly mean consumption**
+* interpolated missing hours
+* applied time-aware 80/20 train–test split
 
-sorted chronologically
+Processed dataset is stored under:
 
-converted to numeric
-
-resampled to hourly mean consumption
-
-interpolated missing hours
-
-applied time-aware 80/20 train–test split
-
-Processed dataset is saved under:
-
+```
 data/processed/
+```
 
-🧮 Models Implemented
-🟢 Baseline Models
+---
 
-Naive Persistence Forecast
-(next value = previous hour)
+## 🧮 Models Implemented
 
-Moving Average
+### 🟢 Baseline Models
 
-3h, 6h, 12h, 24h windows
+* Naive Persistence Forecast
+  *(next value = previous hour)*
+* Moving Average
 
-🟣 Statistical Models
+  * 3h, 6h, 12h, 24h windows
 
-ARIMA
+---
 
-SARIMA (daily seasonal, m = 24)
+### 🟣 Statistical Models
 
-Both were tuned using compact parameter grids to maintain:
+* ARIMA
+* SARIMA *(daily seasonal, m = 24)*
 
-reproducibility
+Models were tuned using compact parameter grids to ensure:
 
-computational feasibility
+* reproducibility
+* computational feasibility
+* fair comparison across methods
 
-research fairness
+---
 
-🔵 Machine Learning Model
+### 🔵 Machine Learning Model
 
-Prophet (trend-based forecasting)
+* Prophet *(trend-based time-series forecasting)*
 
-🟠 Deep Learning Model
+---
 
-LSTM — 24-hour sliding window
+### 🟠 Deep Learning Model
+
+* **LSTM — 24-hour sliding window**
 
 Pipeline:
 
-Min-Max scaled training set
+* Min-Max scaling on training data
+* supervised time-series sequence generation
+* sequential next-hour prediction
+* evaluation on unseen test set
 
-windowed time-series sequences
+---
 
-sequential test prediction
+## 🧾 Evaluation Metrics
 
-evaluation on unseen data
+All models were evaluated using:
 
-🧾 Evaluation Metrics
+* **MAE** — Mean Absolute Error
+* **RMSE** — Root Mean Square Error
+* **MAPE** — Mean Absolute Percentage Error
+* **sMAPE** — Symmetric MAPE *(robust alternative for near-zero values)*
 
-The models were compared using:
+Metrics were computed on the **same hourly test partition** to ensure fair comparison.
 
-MAE — Mean Absolute Error
+---
 
-RMSE — Root Mean Square Error
-
-MAPE — Mean Absolute Percentage Error
-
-sMAPE — Symmetric MAPE (robust alternative)
-
-All metrics were computed on the same hourly test partition to ensure fair comparison.
-
-🟣 Final Results — Summary
+## 🟣 Final Results — Summary
 
 From the final experiment results:
 
-Model	MAE	RMSE	Notes
-LSTM (24h window)	⭐ Lowest	⭐ Lowest	Best overall
-Naive Forecast	2nd Best	2nd Best	Strong baseline
-Moving Average Models	Higher error	—	Oversmoothing
-SARIMA	Better than ARIMA	—	Seasonal but limited
-ARIMA	Poor	—	Lacks seasonality
-Prophet	Highest error	—	Over-smooths noise
-🎯 Key Findings (Based on Observed Metrics)
+| Model                 | MAE               | RMSE     | Notes                           |
+| --------------------- | ----------------- | -------- | ------------------------------- |
+| **LSTM (24h window)** | ⭐ Lowest          | ⭐ Lowest | Best overall                    |
+| Naive Forecast        | 2nd Best          | 2nd Best | Strong persistence baseline     |
+| Moving Average Models | Higher error      | —        | Oversmoothing effect            |
+| SARIMA                | Better than ARIMA | —        | Limited seasonal benefit        |
+| ARIMA                 | Poor              | —        | Lacks seasonality               |
+| Prophet               | Highest error     | —        | Over-smooths noisy load pattern |
 
-The LSTM model achieved the best performance in MAE, RMSE and sMAPE
+### 🎯 Key Findings
 
-Naive persistence remained a surprisingly strong baseline
+* **LSTM achieved the best accuracy** across MAE, RMSE and sMAPE
+* Naive persistence remained a **strong and competitive baseline**
+* Moving Average degraded performance due to loss of local variation
+* SARIMA improved ARIMA by modeling daily recurrence
+* Prophet struggled with **volatile, appliance-driven usage patterns**
 
-Moving Average degraded accuracy due to oversmoothing
+> Deep learning captured nonlinear and intra-day dynamics
+> that classical models could not learn — while results also confirm
+> that persistence behavior is dominant in short-term household load forecasting.
 
-SARIMA improved ARIMA by modeling daily recurrence
+This dual outcome strengthens the reliability of the comparative analysis.
 
-Prophet struggled due to volatile, appliance-driven behavior
+---
 
-Deep learning captured nonlinear and intra-day dynamics
-that classical models could not learn — while still confirming
-that persistence behavior is dominant in short-term load forecasting.
+## 🧪 Experimental Environment
 
-This dual outcome strengthens the comparative study.
+* Platform → **Google Colab**
+* Language → **Python**
+* Libraries
+  `pandas`, `numpy`, `matplotlib`,
+  `scikit-learn`, `statsmodels`,
+  `prophet`, `tensorflow`
 
-🧪 Experimental Environment
+A `requirements.txt` file is provided for reproducibility.
 
-Platform → Google Colab
+---
 
-Language → Python
+## 🗂 Repository Structure (Suggested)
 
-Libraries
-pandas, numpy, matplotlib,
-scikit-learn, statsmodels,
-prophet, tensorflow
-
-A requirements.txt file is included for reproducibility.
-
-🗂 Repository Structure (Suggested)
+```
 notebooks/
-   01_naive_forecast.ipynb
-   02_moving_average.ipynb
-   03_arima.ipynb
-   04_sarima.ipynb
-   05_prophet.ipynb
-   06_lstm.ipynb
+   01_hourly_naive_forecast_energy_consumption.ipynb
+   02_hourly_moving_average_forecast_energy_consumption.ipynb
+   03_hourly_arima_forecast_energy_consumption.ipynb
+   04_hourly_sarima_forecast_energy_consumption.ipynb
+   05_hourly_prophet_forecast_energy_consumption.ipynb
+   06_hourly_lstm_forecast_energy_consumption.ipynb
 
 data/
    raw/
@@ -179,29 +178,36 @@ results/
    metrics/
    figures/
    comparison_tables/
+```
 
+This organization keeps experiments **modular, transparent, and reproducible**.
 
-This organization keeps experiments modular and traceable.
+---
 
-🙋 Author
+## 🙋 Author
 
-Dhanvan Venkatesh S
+**Dhanvan Venkatesh S**
 
-📌 Future Work
+---
 
-Potential extensions:
+## 📌 Future Work
 
-GRU-based deep learning model
+Potential extensions include:
 
-CNN-LSTM hybrid architecture
+* GRU-based recurrent model
+* CNN-LSTM hybrid architecture
+* multi-feature forecasting using:
 
-exogenous features (sub-metering, voltage)
+  * sub-metering values
+  * voltage & current fields
+* probabilistic forecasting
+* multi-step ahead load prediction
 
-probabilistic forecasting
+---
 
-multi-step ahead prediction
+## 🙏 Acknowledgement
 
-🙏 Acknowledgement
+Dataset courtesy of **UCI Machine Learning Repository**
+Kaggle dataset mirror used for accessibility convenience.
 
-Dataset courtesy of UCI Machine Learning Repository
-Kaggle dataset mirror used for access convenience.
+---
