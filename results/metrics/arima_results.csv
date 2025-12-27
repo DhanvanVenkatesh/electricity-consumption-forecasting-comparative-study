@@ -1,0 +1,2 @@
+Model,MAE,RMSE,MAPE (in %),sMAPE (in %)
+ARIMA Model Performance (Hourly),0.6819,0.9086,122.07,76.54

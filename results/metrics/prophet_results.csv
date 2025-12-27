@@ -1,0 +1,2 @@
+Model,MAE,RMSE,MAPE (in %),sMAPE (in %)
+Prophet Model Performance (Hourly),0.7375,0.9772,123.99,102.4

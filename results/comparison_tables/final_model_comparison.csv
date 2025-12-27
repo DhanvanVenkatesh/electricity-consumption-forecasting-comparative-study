@@ -1,0 +1,10 @@
+Model,MAE,RMSE,MAPE (in %),sMAPE (in %)
+LSTM Model Performance (Hourly),0.3556,0.5335,55.24,41.38
+Naive Forecast Results,0.3755,0.6237,41.54,
+Moving Average (3h),0.4752,0.7414,59.9789,
+Moving Average (24h),0.5559,0.7827,85.7468,
+Moving Average (12h),0.5627,0.7984,86.2114,
+Moving Average (6h),0.5748,0.8341,83.1101,
+SARIMA Model Performance (Hourly),0.6018,0.8229,120.65,64.46
+ARIMA Model Performance (Hourly),0.6819,0.9086,122.07,76.54
+Prophet Model Performance (Hourly),0.7375,0.9772,123.99,102.4

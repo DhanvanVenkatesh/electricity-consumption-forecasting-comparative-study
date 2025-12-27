@@ -1,0 +1,2 @@
+Model,MAE,RMSE,MAPE (in %),sMAPE (in %)
+LSTM Model Performance (Hourly),0.3556,0.5335,55.24,41.38

@@ -1,0 +1,5 @@
+Model,MAE,RMSE,MAPE (in %)
+Moving Average (3h),0.4752,0.7414,59.9789
+Moving Average (24h),0.5559,0.7827,85.7468
+Moving Average (12h),0.5627,0.7984,86.2114
+Moving Average (6h),0.5748,0.8341,83.1101
