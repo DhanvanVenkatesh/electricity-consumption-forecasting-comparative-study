@@ -123,7 +123,7 @@ From the final experiment results:
 
 | Model                 | MAE               | RMSE     | Notes                           |
 | --------------------- | ----------------- | -------- | ------------------------------- |
-| **LSTM (24h window)** | ⭐ Lowest          | ⭐ Lowest | Best overall                    |
+| **LSTM (24h window)** | Lowest            | Lowest | Best overall                    |
 | Naive Forecast        | 2nd Best          | 2nd Best | Strong persistence baseline     |
 | Moving Average Models | Higher error      | —        | Oversmoothing effect            |
 | SARIMA                | Better than ARIMA | —        | Limited seasonal benefit        |
@@ -159,7 +159,7 @@ A `requirements.txt` file is provided for reproducibility.
 
 ---
 
-## 🗂 Repository Structure (Suggested)
+## 🗂 Repository Structure
 
 ```
 notebooks/
@@ -211,3 +211,4 @@ Dataset courtesy of **UCI Machine Learning Repository**
 Kaggle dataset mirror used for accessibility convenience.
 
 ---
+
